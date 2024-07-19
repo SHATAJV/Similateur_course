@@ -4,16 +4,30 @@
 
 """
 Course Similator:
+A program to simulate a trotting race.
 """
 
 import random
+
+
 total_distance = 2400
 min_number_horses = 12
 max_number_horses =20
 
 def start_dice():
+    """simulate rolling a six-sided dice.
+    Returns:
+        int: a random integer between 1 and 6 inclusive.
+    """
     return  random.randint(1, 6)
 def Speed(currenct_speed, DQ):
+    """update the speed of a horse based on its current speed and the dice roll
+    Args:
+        currenct_speed(int) : the current speed of horses.
+        DQ(bool): the disqualification status of horses
+    :returns :
+    tuple: update speed and disqualification status
+    """
      if DQ:
          return currenct_speed, DQ
      dice=start_dice()
@@ -49,6 +63,12 @@ def Speed(currenct_speed, DQ):
      return currenct_speed,DQ
 
 def position_horse (position, speed, DQ):
+    """Display the current position , speed , Disqualification status of all horses
+    :arg:
+    position (list): list of position of each horse.
+    speed (list): a list of speeds for each horse.
+    DQ(list): a list of disqualification statuses for each horse.
+    """
     for i, pos in enumerate(position):
         status = "DQ" if DQ[i] else f"Position: {pos} m, Speed: {speed[i]} m/s"
     print(f"Horse {i+1} - {status}")
@@ -60,7 +80,12 @@ def winner(positions):
 
 
 def main():
-
+    """Check if any horses has reached or exceeded the total distance
+   Args:
+       position (list): a list of position for each horse
+   returns:
+   int or non : the index of the wining horses if there is a winner , otherwise
+           """
 
     while True:
         try:
