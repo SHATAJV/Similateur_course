@@ -57,3 +57,17 @@ def winner(positions):
         if pos >= total_distance:
             return i
             return None
+
+
+def main():
+
+
+    while True:
+        try:
+            num_horses = int(input(f"Enter the number of horses ({min_number_horses} to {max_number_horses}): "))
+            if min_number_horses <= num_horses <= max_number_horses:
+                break
+            else:
+                print(f"Please enter a number between {min_number_horses} and {max_number_horses}.")
+        except ValueError:
+            print("Please enter a valid number.")
