@@ -46,3 +46,10 @@ def start_dice():
      if currenct_speed<0:
          currenct_speed
 
+     return currenct_speed,DQ
+
+def position_horse (position, speed, DQ):
+    for i, pos in enumerate(position):
+        status = "DQ" if DQ[i] else f"Position: {pos} m, Speed: {speed[i]} m/s"
+         print(f"Horse {i+1} - {status}")
+        def check_winner(positions): for i, pos in enumerate(positions): if pos >= TOTAL_DISTANCE: return i return None
