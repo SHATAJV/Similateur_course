@@ -4,6 +4,8 @@
 """
 Course Simulator:
 A program to simulate a trotting race.
+This program simulates a trotting race where each horse's speed is determined by dice rolls.
+The race continues until all horses have either finished the race or been disqualified.
 """
 
 import random
@@ -11,7 +13,6 @@ import random
 total_distance = 2400
 min_number_horses = 12
 max_number_horses = 20
-
 
 def start_dice():
     """
@@ -21,7 +22,6 @@ def start_dice():
         int: A random integer between 1 and 6 inclusive.
     """
     return random.randint(1, 6)
-
 
 def Speed(current_speed, DQ):
     """
@@ -44,33 +44,31 @@ def Speed(current_speed, DQ):
             DQ = True
         elif dice in [3, 4, 5]:
             current_speed += 1
-        elif dice in [6]:
+        elif dice == 6:
             current_speed += 2
     elif current_speed == 1:
-        if dice in [1]:
+        if dice == 1:
             pass
         elif dice in [2, 3, 4, 5]:
             current_speed += 1
-        elif dice in [6]:
+        elif dice == 6:
             current_speed += 2
     elif current_speed == 2:
         if dice in [1, 2]:
             pass
         elif dice in [3, 4, 5]:
             current_speed += 1
-        elif dice in [6]:
+        elif dice == 6:
             current_speed += 2
     elif current_speed == 3:
-        if dice in [1]:
+        if dice == 1:
             current_speed -= 1
         elif dice in [2, 3]:
             pass
-        elif dice in [4, 5]:
-            current_speed += 1
-        elif dice in [6]:
+        elif dice in [4, 5, 6]:
             current_speed += 1
     elif current_speed == 4:
-        if dice in [1]:
+        if dice == 1:
             current_speed -= 1
         elif dice in [2, 3, 4]:
             pass
@@ -81,21 +79,20 @@ def Speed(current_speed, DQ):
             current_speed -= 1
         elif dice in [3, 4, 5]:
             pass
-        elif dice in [6]:
+        elif dice == 6:
             current_speed += 1
     elif current_speed == 6:
         if dice in [1, 2]:
             current_speed -= 1
         elif dice in [3, 4, 5]:
             pass
-        elif dice in [6]:
+        elif dice == 6:
             DQ = True
 
     if current_speed < 0:
         current_speed = 0
 
     return current_speed, DQ
-
 
 def position_horse(position, speed, DQ, time_elapsed):
     """
@@ -116,7 +113,6 @@ def position_horse(position, speed, DQ, time_elapsed):
         progress = int((pos / total_distance) * 50)  # Scale the progress bar to 50 characters
         print(f"[{'=' * progress}>{'.' * (50 - progress)}]")
 
-
 def winner(positions):
     """
     Check if any horse has reached or exceeded the total distance.
@@ -131,7 +127,6 @@ def winner(positions):
         if pos >= total_distance:
             return i
     return None
-
 
 def main():
     """
@@ -172,7 +167,7 @@ def main():
         for i in range(num_horses):
             if not DQ[i]:
                 speeds[i], DQ[i] = Speed(speeds[i], DQ[i])
-                positions[i] += speeds[i] * 10  # Distance covered in 10 seconds
+                positions[i] += speeds[i] * 23  # Each speed unit represents 23 meters in 10 seconds
 
         position_horse(positions, speeds, DQ, time_elapsed)
 
@@ -191,7 +186,5 @@ def main():
     for pos, i in results:
         print(f"Horse {i + 1} - Position: {pos} m")
 
-
 if __name__ == "__main__":
     main()
-
