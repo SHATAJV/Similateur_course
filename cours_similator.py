@@ -13,7 +13,7 @@ max_number_horses =20
 
 def start_dice():
     return  random.randint(1, 6)
- def Speed(currenct_speed, DQ):
+def Speed(currenct_speed, DQ):
      if DQ:
          return currenct_speed, DQ
      dice=start_dice()
@@ -71,3 +71,24 @@ def main():
                 print(f"Please enter a number between {min_number_horses} and {max_number_horses}.")
         except ValueError:
             print("Please enter a valid number.")
+    positions = [0] * num_horses
+    speeds = [0] * num_horses
+    DQ = [False] * num_horses
+
+    while True:
+        input("Press Enter to advance the race by one turn...")
+
+        for i in range(num_horses):
+            if not DQ[i]:
+                speeds[i], DQ[i] = Speed(speeds[i], DQ[i])
+                positions[i] += speeds[i]
+
+        position_horse(positions, speeds, DQ)
+
+        winning_horse = winner(positions)
+        if winning_horse is not None:
+            print(f"Horse {winning_horse + 1} has won the race!")
+            break
+
+if __name__ == "__main__":
+    main()
